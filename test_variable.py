@@ -63,9 +63,22 @@ def testconttection():
     assert y.creator.input.creator.input == x
 
 
+def testautobackward():
+    data = np.array([1, 2])
+    x = Variable(data)
+    A = Square()
+    B = Exp()
+    a = A(x)
+    y = B(a)
+    y.grad = np.array([1, 2])
+    y.backward()
+    print(x.grad)
+
+
 if __name__ == "__main__":
     testSquare()
     testExp()
     testconcat()
     testbackward()
     testconttection()
+    testautobackward()

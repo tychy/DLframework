@@ -10,7 +10,7 @@ class Variable:
     def set_creator(self, func):
         self.creator = func
 
-    def backward(self, func):
+    def backward(self):
         f = self.creator
         if f is not None:
             x = f.input

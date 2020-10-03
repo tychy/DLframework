@@ -43,7 +43,7 @@ def testbackward():
     B = Exp()
     a = A(x)
     y = B(a)
-    y.grad = np.array([1, 2])
+    y.grad = np.array([1, 1])
     a.grad = B.backward(y.grad)
     x.grad = A.backward(a.grad)
 
@@ -70,7 +70,6 @@ def testautobackward():
     B = Exp()
     a = A(x)
     y = B(a)
-    y.grad = np.array([1, 2])
     y.backward()
     return x.grad
 
@@ -78,7 +77,6 @@ def testautobackward():
 def test_wrapper():
     x = Variable(np.array([1, 2]))
     y = exp(square(x))
-    y.grad = np.array([1, 2])
     y.backward()
     return x.grad
 

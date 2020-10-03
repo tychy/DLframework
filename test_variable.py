@@ -1,5 +1,5 @@
 import numpy as np
-from basics import Variable, Square, Exp
+from basics import Variable, Square, Exp, square, exp
 
 
 def testVariable():
@@ -47,7 +47,7 @@ def testbackward():
     a.grad = B.backward(y.grad)
     x.grad = A.backward(a.grad)
 
-    print(x.grad)
+    return x.grad
 
 
 def testconttection():
@@ -72,13 +72,21 @@ def testautobackward():
     y = B(a)
     y.grad = np.array([1, 2])
     y.backward()
-    print(x.grad)
+    return x.grad
+
+
+def test_wrapper():
+    x = Variable(np.array([1, 2]))
+    y = exp(square(x))
+    y.grad = np.array([1, 2])
+    y.backward()
+    return x.grad
 
 
 if __name__ == "__main__":
-    testSquare()
-    testExp()
-    testconcat()
-    testbackward()
+    # testSquare()
+    # testExp()
+    # testconcat()
     testconttection()
-    testautobackward()
+    assert np.array_equal(testbackward(), testautobackward())
+    assert np.array_equal(testbackward(), test_wrapper())

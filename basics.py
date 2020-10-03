@@ -11,11 +11,13 @@ class Variable:
         self.creator = func
 
     def backward(self):
-        f = self.creator
-        if f is not None:
-            x = f.input
-            x.grad = f.backward(self.grad)
-            x.backward()
+        funcs = [self.creator]
+        while funcs:
+            f = funcs.pop()
+            x, y = f.input, f.output
+            x.grad = f.backward(y.grad)
+            if x.creator is not None:
+                funcs.append(x.creator)
 
 
 class Function:
@@ -50,3 +52,13 @@ class Exp(Function):
     def backward(self, gy):
         x = self.input.data
         return gy * np.exp(x)
+
+
+def square(x):
+    f = Square()
+    return f(x)
+
+
+def exp(x):
+    f = Exp()
+    return f(x)

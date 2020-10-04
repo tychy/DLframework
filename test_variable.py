@@ -1,5 +1,5 @@
 import numpy as np
-from basics import Variable, Square, Exp, square, exp
+from basics import Variable, Square, Exp, square, exp, as_array
 
 
 def testVariable():
@@ -81,10 +81,22 @@ def test_wrapper():
     return x.grad
 
 
+def test_grad():
+    assert np.array_equal(testbackward(), testautobackward())
+    assert np.array_equal(testbackward(), test_wrapper())
+
+
+def test_asarray():
+    a = np.array(1)
+    b = a ** 2
+    assert np.isscalar(b)
+    assert not np.isscalar(as_array(b))
+
+
 if __name__ == "__main__":
     # testSquare()
     # testExp()
     # testconcat()
     testconttection()
-    assert np.array_equal(testbackward(), testautobackward())
-    assert np.array_equal(testbackward(), test_wrapper())
+    test_grad()
+    test_asarray()

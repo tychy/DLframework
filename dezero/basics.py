@@ -1,4 +1,5 @@
 import numpy as np
+import dezero
 
 
 def as_array(x):

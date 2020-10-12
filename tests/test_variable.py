@@ -1,5 +1,5 @@
 import numpy as np
-from basics import Variable, Square, Exp, square, exp, as_array
+from dezero import Variable, Square, Exp, square, exp, as_array
 
 
 def testVariable():

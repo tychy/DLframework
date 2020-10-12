@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from dezero.basics import Variable, square, numerical_diff
+from dezero import Variable, square, numerical_diff
 
 
 class SquareTest(unittest.TestCase):
